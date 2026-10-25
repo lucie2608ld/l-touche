@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Touche — Ajoute ta touche !</title>
+  <style>
+    :root {
+      --orange: #f28c43;
+      --purple: #af06a8;
+      --ink: #54043a;
+      --cream: #fffaf5;
+      --muted: #6e6577;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1120px, 90%); margin: auto; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255,250,245,.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee2f7;
+    }
+    nav { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:18px 0; }
+    .logo { font-size: 1.55rem; font-weight: 950; letter-spacing:-1.5px; }
+    .logo span { color: var(--orange); }
+    .links { display:flex; gap:24px; font-size:.95rem; font-weight:700; }
+    .links a:hover { color: var(--purple); }
+    .button {
+      display:inline-block; border:0; cursor:pointer; border-radius:999px;
+      padding:13px 20px; font-weight:800; background:var(--purple); color:white;
+      transition: transform .2s, background .2s;
+    }
+    .button:hover { transform: translateY(-2px); background:#5b16c5; }
+    .button.orange { background:var(--orange); color:#21112c; }
+    .hero { padding:76px 0 64px; overflow:hidden; }
+    .hero-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center; }
+    .eyebrow { display:inline-block; background:#f0e4ff; color:var(--purple); padding:8px 13px; border-radius:99px; font-size:.8rem; font-weight:900; text-transform:uppercase; letter-spacing:1px; }
+    h1 { font-size:clamp(3rem, 7vw, 5.8rem); line-height:.94; letter-spacing:-4px; margin:20px 0; }
+    h1 em { color:var(--orange); font-style:normal; }
+    .hero p { color:var(--muted); font-size:1.12rem; line-height:1.7; max-width:520px; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:27px; }
+    .sticker-board {
+      min-height:390px; position:relative; border-radius:32px;
+      background:linear-gradient(135deg,#ffe2c7,#eadcff);
+      display:grid; place-items:center; padding:24px; transform:rotate(1deg);
+    }
+    .sticker {
+      position:absolute; display:grid; place-items:center; text-align:center;
+      background:white; border:4px solid var(--ink); box-shadow:5px 6px 0 var(--ink);
+      font-weight:950; border-radius:28px; transform:rotate(-9deg);
+    }
+    .s1 { width:170px; height:125px; left:8%; top:11%; color:var(--purple); font-size:1.5rem; }
+    .s2 { width:120px; height:120px; right:9%; top:12%; border-radius:50%; background:var(--orange); font-size:3.5rem; transform:rotate(10deg); }
+    .s3 { width:150px; height:105px; left:14%; bottom:12%; background:var(--purple); color:white; font-size:1.3rem; transform:rotate(8deg); }
+    .s4 { width:130px; height:130px; right:12%; bottom:10%; color:var(--orange); font-size:4.2rem; transform:rotate(-7deg); }
+    .spark { position:absolute; color:var(--orange); font-size:2.4rem; font-weight:900; }
+    .sp1 { top:43%; left:46%; } .sp2 { top:6%; left:47%; color:var(--purple); }
+    section { padding:70px 0; }
+    .section-head { text-align:center; max-width:650px; margin:0 auto 35px; }
+    h2 { font-size:clamp(2rem,4vw,3.1rem); letter-spacing:-1.5px; margin:0 0 12px; }
+    .section-head p { color:var(--muted); line-height:1.65; margin:0; }
+    .products { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .card { background:white; border:1px solid #f0e5f8; border-radius:24px; padding:18px; box-shadow:0 10px 28px #31104b0b; }
+    .product-art { height:190px; border-radius:17px; display:grid; place-items:center; font-size:5rem; margin-bottom:17px; }
+    .art1 { background:#ffe2c7; } .art2 { background:#e8d8ff; } .art3 { background:#fff0a8; }
+    .card h3 { margin:0 0 7px; font-size:1.2rem; }
+    .card p { color:var(--muted); line-height:1.55; margin:0 0 14px; }
+    .tag { display:inline-block; padding:6px 10px; background:#f5edff; color:var(--purple); border-radius:99px; font-size:.78rem; font-weight:800; }
+    .values { background:#251538; color:white; }
+    .values-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+    .value { padding:24px; border:1px solid #59466b; border-radius:22px; }
+    .value .icon { font-size:2rem; }
+    .value h3 { margin:13px 0 8px; }
+    .value p { color:#d5cadd; line-height:1.6; margin:0; }
+    .loyalty-box { display:grid; grid-template-columns:1fr 1fr; gap:30px; align-items:center; background:#fff; border:2px dashed #e5c9ff; border-radius:28px; padding:34px; }
+    .stamp-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:9px; }
+    .stamp { aspect-ratio:1; border:2px dashed #cbb3e5; border-radius:13px; display:grid; place-items:center; color:#b9a3d0; font-weight:900; }
+    .stamp:last-child { background:var(--orange); border:2px solid var(--orange); color:var(--ink); }
+    .loyalty-box p { color:var(--muted); line-height:1.7; }
+    .contact { text-align:center; background:linear-gradient(120deg,#ffead8,#eee2ff); }
+    .contact p { color:var(--muted); line-height:1.6; }
+    footer { padding:24px 0; font-size:.9rem; color:var(--muted); }
+    .footer-row { display:flex; justify-content:space-between; gap:15px; flex-wrap:wrap; }
+    @media (max-width:760px) {
+      .links { gap:12px; font-size:.82rem; }
+      .links a:nth-child(2) { display:none; }
+      .hero { padding-top:48px; }
+      .hero-grid, .loyalty-box { grid-template-columns:1fr; }
+      .sticker-board { min-height:330px; }
+      .products, .values-grid { grid-template-columns:1fr; }
+      h1 { letter-spacing:-2px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav>
+        <a class="logo" href="#accueil">L'<span>TOUCHE</span></a>
+        <div class="links">
+          <a href="#produits">Nos produits</a>
+          <a href="#concept">Notre concept</a>
+          <a href="#fidelite">Fidélité</a>
+        </div>
+        <a class="button" href="#produits">Découvrir</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Créatif • Coloré • Unique</span>
+          <h1>Ajoute<br>ta <em>touche !</em></h1>
+          <p>Des stickers et des objets personnalisés pour montrer ton style. Des couleurs qui bougent, des idées originales et une touche de toi partout.</p>
+          <div class="hero-actions">
+            <a class="button orange" href="#produits">Voir les produits</a>
+            <a class="button" href="#concept">Découvrir L'Touche</a>
+          </div>
+        </div>
+        <div class="sticker-board" aria-label="Illustration de stickers orange et violets">
+          <div class="sticker s1">GOOD<br>VIBES ✦</div>
+          <div class="sticker s2">☺</div>
+          <div class="sticker s3">BE<br>YOURSELF</div>
+          <div class="sticker s4">♥</div>
+          <div class="spark sp1">✦</div><div class="spark sp2">✷</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="produits">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Choisis ta touche</h2>
+          <p>Des petits objets qui rendent tes affaires plus personnelles et plus originales.</p>
+        </div>
+        <div class="products">
+          <article class="card">
+            <div class="product-art art1">⚡♡</div>
+            <h3>Planches de stickers</h3>
+            <p>Des formes, des mots et des dessins à coller où tu veux.</p>
+            <span class="tag">Colorés & fun</span>
+          </article>
+          <article class="card">
+            <div class="product-art art2">📱✦</div>
+            <h3>Coques personnalisées</h3>
+            <p>Une coque qui reflète ton humeur et ton style.</p>
+            <span class="tag">À ton image</span>
+          </article>
+          <article class="card">
+            <div class="product-art art3">📒★</div>
+            <h3>Carnets créatifs</h3>
+            <p>Pour noter tes idées dans un carnet qui te ressemble.</p>
+            <span class="tag">Créativité au quotidien</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="values" id="concept">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Notre concept</h2>
+          <p style="color:#d5cadd">L'Touche aide chacun à exprimer sa personnalité grâce à des objets personnalisés et des designs pleins d'énergie.</p>
+        </div>
+        <div class="values-grid">
+          <article class="value"><div class="icon">🎨</div><h3>Créativité</h3><p>Des idées originales et des designs qui sortent de l'ordinaire.</p></article>
+          <article class="value"><div class="icon">✨</div><h3>Originalité</h3><p>Des objets qui montrent ton style et ta personnalité.</p></article>
+          <article class="value"><div class="icon">⚡</div><h3>Dynamisme</h3><p>Des couleurs vives et des formes qui donnent de l'énergie.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="fidelite">
+      <div class="wrap">
+        <div class="loyalty-box">
+          <div>
+            <span class="eyebrow">Carte de fidélité</span>
+            <h2 style="margin-top:16px">Un petit cadeau pour toi !</h2>
+            <p>À chaque achat, gagne 1 tampon. Quand tu as obtenu 10 tampons, reçois 2 planches de stickers offertes.</p>
+            <strong>10 tampons = 2 planches offertes 🎁</strong>
+          </div>
+          <div class="stamp-grid" aria-label="Exemple de carte avec dix tampons">
+            <div class="stamp">1</div><div class="stamp">2</div><div class="stamp">3</div><div class="stamp">4</div><div class="stamp">5</div>
+            <div class="stamp">6</div><div class="stamp">7</div><div class="stamp">8</div><div class="stamp">9</div><div class="stamp">10</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <h2>Prêt·e à ajouter ta touche ?</h2>
+        <p>Découvre nos idées, personnalise tes objets et crée un style qui te ressemble.</p>
+        <a class="button orange" href="#produits">Trouver mon style</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <strong>L'TOUCHE — Ajoute ta touche !</strong>
+      <span>© 2026 L'Touche · Projet de marque</span>
+    </div>
+  </footer>
+</body>
+</html>
